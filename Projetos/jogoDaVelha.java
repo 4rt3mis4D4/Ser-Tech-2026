@@ -41,7 +41,7 @@ public class jogoDaVelha {
         System.out.println("   +-----+-----+-----+");
     }
 
-    // FUNÇÃO JOGO
+    // FUNÇÃO MENU JOGAR
     public static void jogar() {
         Scanner ler = new Scanner(System.in);
 
@@ -105,6 +105,7 @@ public class jogoDaVelha {
         return "continue";
     }
 
+    // FUNÇÃO MENU REGRAS
     public static void regras(){
         System.out.println("\n--- REGRAS: JOGO DA VELHA ---");
         System.out.println("1. O jogo é para 2 jogadores.");
@@ -116,6 +117,7 @@ public class jogoDaVelha {
         System.out.println("\n--- BOA SORTE E DIVIRTA-SE!!! ---\n");
     }
 
+    // FUNÇÃO MENU CREDITOS (APRESENTAÇÃO DEV)
     public static void creditos(){
         System.out.println("\n--- CREDITOS: JOGO DA VELHA ---");
         System.out.println("Desenvolvedor: 4rt3misTK");
@@ -132,37 +134,39 @@ public class jogoDaVelha {
 
     public static void main (String[]args){
         Scanner ler = new Scanner(System.in);
-        int opcao;
+        int opcao; // ---Opção de menu 
 
         do{
+            // ---Exibindo Menu 
             System.out.println("+-+-+ JOGO DA VELHA +-+-+");
             System.out.println("1. JOGAR");
             System.out.println("2. REGRAS");
             System.out.println("3. CREDITOS");
             System.out.println("0. SAIR");
             System.out.print("\nDigite aqui: ");
-            opcao = ler.nextInt();
+            opcao = ler.nextInt(); // ---Captura da opção que usuário digitou
 
+            // ---Switch para escolha do usuário
             switch(opcao){
-                case 1:
-                    jogar();
+                case 1: // ---1. JOGAR
+                    jogar(); 
                     break;
-                case 2:
+                case 2: // ---2. REGRAS
                     regras();
                     break;
-                case 3:
+                case 3: // ---3. CREDITOS
                     creditos();
                     break;
-                case 0:
+                case 0: // ---0. SAIR
                     System.out.println("\n--- OBRIGADA POR JOGAR! ---");
                     System.out.println("Volte sempre para mais partidas de Jogo da Velha!");
                     System.out.println("Encerrando sistema...\n");
                     break;
-                default:
+                default: // ---Nenhuma das opções do Menu
                     System.out.println("\n--- OPÇÃO INVÁLIDA! ---");
                     System.out.println("Digite apenas 0, 1, 2 ou 3.");
                     System.out.println("Tente novamente...\n");
             }
-        } while (opcao!=0);
+        } while (opcao!=0); // ---Para o laço de repetição quando usuário digitar 0
     }
 }
