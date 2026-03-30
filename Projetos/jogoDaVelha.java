@@ -1,3 +1,5 @@
+package Projetos;
+
 /*
     === Realize a implementação do Jogo da Velha em Java. ===
 
@@ -52,7 +54,7 @@ public class jogoDaVelha {
            int coluna = ler.nextInt();
 
            // === Validando jogada ===
-           if(linha >= 0 && linha < 3 && coluna >= 0 && linha < 3){
+           if(linha >= 0 && linha < 3 && coluna >= 0 && linha < 3 && estrutura[linha][coluna] == 0){
                estrutura[linha][coluna] = jogadorAtual; // ---Grava escolha do jogador
                jogadorAtual = (jogadorAtual == 1) ? 2 : 1; // ---Passa para o próximo jogador
            } else {
