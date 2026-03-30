@@ -1,3 +1,5 @@
+package Projetos;
+
 /*
     === Realize a implementação do Jogo da Velha em Java. ===
 
@@ -145,9 +147,9 @@ public class jogoDaVelha {
     public static void main (String[]args){
         Scanner ler = new Scanner(System.in);
         int opcao = 0; // ---Opção de menu
-        boolean entradaValida = false; // ---Valida tratamento de erro
 
         do{
+            boolean entradaValida = false; // ---Valida tratamento de erro
             // ---Exibindo Menu
             while(!entradaValida) {
                 // ---Tratamento de erro: caso o usuário não digite um número inteiro
