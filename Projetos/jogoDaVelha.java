@@ -20,6 +20,7 @@ public class jogoDaVelha {
 
         int [][] estrutura = new int [3][3]; // ---Tabuleiro [linha][coluna]
         int jogadorAtual = 1; // ---Jogadores
+        int numJogadas = 0; // ---Controle de número de jogadas
         boolean jogoAtivo = true; // ---Partida rolando
 
        while(jogoAtivo){
@@ -54,7 +55,37 @@ public class jogoDaVelha {
            // === Validando jogada ===
            if(linha >= 0 && linha < 3 && coluna >= 0 && linha < 3 && estrutura[linha][coluna] == 0){
                estrutura[linha][coluna] = jogadorAtual; // ---Grava escolha do jogador
-               jogadorAtual = (jogadorAtual == 1) ? 2 : 1; // ---Passa para o próximo jogador
+               numJogadas++;
+
+               // === Verificando resultado ===
+               boolean venceu = false;
+
+               // ---Verifica vitória por horizontal ou vertical
+               for(int i = 0; i < 3; i++){
+                   //System.out.println(estrutura[i][0] + " " + estrutura[i][1] + " " + estrutura[i][2]);
+
+                   if((estrutura[i][0] == jogadorAtual && estrutura[i][1] == jogadorAtual && estrutura[i][2] == jogadorAtual) ||
+                           (estrutura[0][i] == jogadorAtual && estrutura[1][i] == jogadorAtual && estrutura[2][i] == jogadorAtual)){
+                       venceu = true;
+                   }
+               }
+
+               // ---Verifica vitória por diagonais
+               if((estrutura[0][0] == jogadorAtual && estrutura[1][1] == jogadorAtual && estrutura[2][2] == jogadorAtual) ||
+                       (estrutura[0][2] == jogadorAtual && estrutura[1][1] == jogadorAtual && estrutura[2][0] == jogadorAtual)){
+                   venceu = true;
+               }
+
+               // ---Resultado
+               if(venceu == true){
+                   System.out.printf("\nVITÓRIA!!! O jogador %d venceu!", jogadorAtual);
+                   jogoAtivo = false;
+               } else if (numJogadas == 9){
+                   System.out.println("\nEMPATE! Ambos os jogadores venceram!");
+                   jogoAtivo = false;
+               } else {
+                   jogadorAtual = (jogadorAtual == 1) ? 2 : 1; // ---Passa para o próximo jogador
+               }
            } else {
                System.out.println("\n[!] ERRO: Posição inválida ou ja ocupada. Tente novamente...");
            }
