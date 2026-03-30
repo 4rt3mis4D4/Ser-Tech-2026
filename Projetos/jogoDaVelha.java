@@ -12,9 +12,8 @@
     ser chamados antes de efetuar a jogada de fato. Ou pode-se fazer este tratamento de erro com exceções.
  */
 
-import javax.sound.midi.SysexMessage;
-import java.lang.classfile.instruction.SwitchCase;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class jogoDaVelha {
 
@@ -41,7 +40,7 @@ public class jogoDaVelha {
         System.out.println("   +-----+-----+-----+");
     }
 
-    // FUNÇÃO MENU JOGAR
+    // FUNÇÃO JOGO
     public static void jogar() {
         Scanner ler = new Scanner(System.in);
 
@@ -52,14 +51,25 @@ public class jogoDaVelha {
 
         while (jogoAtivo) {
             tabuleiro(estrutura);
+            int linha = 0;
+            int coluna = 0;
+            boolean entradaValida = false; // ---Valida tratamento de erro
 
-            // === Solicitando jogadas ===
-            System.out.println("\nJOGADOR: " + jogadorAtual + " (" + (jogadorAtual == 1 ? "X" : "O") + ")"); // ---Exibe quem é o jogador
-            System.out.print("Digite a LINHA (0, 1, 2): "); // ---Solicitando linha
-            int linha = ler.nextInt();
-            System.out.print("Digite a COLUNA (0, 1, 2): "); // ---Solicitando coluna
-            int coluna = ler.nextInt();
+            while(!entradaValida) {
+                try { // ---Tratamento de erro: caso o usuário não digite um número inteiro
+                    // === Solicitando jogadas ===
+                    System.out.println("\nJOGADOR: " + jogadorAtual + " (" + (jogadorAtual == 1 ? "X" : "O") + ")"); // ---Exibe quem é o jogador
+                    System.out.print("Digite a LINHA (0, 1, 2): "); // ---Solicitando linha
+                    linha = ler.nextInt();
+                    System.out.print("Digite a COLUNA (0, 1, 2): "); // ---Solicitando coluna
+                    coluna = ler.nextInt();
 
+                    entradaValida = true; // ---Validação: tratamento de erro
+                } catch (InputMismatchException e) {
+                    System.out.println("\n[!] ERRO: Você deve apenas digitar números inteiros (0, 1, 2).\n");
+                    ler.next(); // ---Descarta oq o usuário digitou
+                }
+            }
             // === Validando jogada ===
             if (linha >= 0 && linha < 3 && coluna >= 0 && linha < 3 && estrutura[linha][coluna] == 0) {
                 estrutura[linha][coluna] = jogadorAtual; // ---Grava escolha do jogador
@@ -121,7 +131,7 @@ public class jogoDaVelha {
     public static void creditos(){
         System.out.println("\n--- CREDITOS: JOGO DA VELHA ---");
         System.out.println("Desenvolvedor: 4rt3misTK");
-        System.out.println("Nome real: Gabriela Pedroso dos Santos Pontes");
+        System.out.println("Nome real: Gabriela P. S. Pontes");
         System.out.println("\n--- OBJETIVO DO PROJETO ---");
         System.out.println("Este projeto foi desenvolvido para demonstrar a evolucao");
         System.out.println("na linguagem Java apos a conclusao da primeira etapa do curso,");
@@ -134,28 +144,38 @@ public class jogoDaVelha {
 
     public static void main (String[]args){
         Scanner ler = new Scanner(System.in);
-        int opcao; // ---Opção de menu 
+        int opcao = 0; // ---Opção de menu
+        boolean entradaValida = false; // ---Valida tratamento de erro
 
         do{
-            // ---Exibindo Menu 
-            System.out.println("+-+-+ JOGO DA VELHA +-+-+");
-            System.out.println("1. JOGAR");
-            System.out.println("2. REGRAS");
-            System.out.println("3. CREDITOS");
-            System.out.println("0. SAIR");
-            System.out.print("\nDigite aqui: ");
-            opcao = ler.nextInt(); // ---Captura da opção que usuário digitou
+            // ---Exibindo Menu
+            while(!entradaValida) {
+                // ---Tratamento de erro: caso o usuário não digite um número inteiro
+                try {
+                    System.out.println("+-+-+ JOGO DA VELHA +-+-+");
+                    System.out.println("      1. JOGAR");
+                    System.out.println("      2. REGRAS");
+                    System.out.println("      3. CREDITOS");
+                    System.out.println("      0. SAIR");
+                    System.out.print("\nDigite aqui: ");
+                    opcao = ler.nextInt(); // ---Captura da opção que usuário digitou
 
+                    entradaValida = true; // ---Validação: tratamento de erro
+                } catch (InputMismatchException e) {
+                    System.out.println("\n[!] ERRO: Você deve apenas digitar números inteiros (0, 1, 2).\n");
+                    ler.next(); // ---Descarta oq o usuário digitou
+                }
+            }
             // ---Switch para escolha do usuário
-            switch(opcao){
-                case 1: // ---1. JOGAR
-                    jogar(); 
+            switch (opcao) {
+                case 1:
+                    jogar(); // ---1. JOGAR
                     break;
-                case 2: // ---2. REGRAS
-                    regras();
+                case 2:
+                    regras(); // ---2. REGRAS
                     break;
-                case 3: // ---3. CREDITOS
-                    creditos();
+                case 3:
+                    creditos(); // ---3. CREDITOS
                     break;
                 case 0: // ---0. SAIR
                     System.out.println("\n--- OBRIGADA POR JOGAR! ---");
