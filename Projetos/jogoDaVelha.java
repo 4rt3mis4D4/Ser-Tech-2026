@@ -1,5 +1,3 @@
-package Projetos;
-
 /*
     === Realize a implementação do Jogo da Velha em Java. ===
 
